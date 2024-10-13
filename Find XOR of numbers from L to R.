@@ -1,0 +1,29 @@
+https://www.geeksforgeeks.org/problems/find-xor-of-numbers-from-l-to-r/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=find-xor-of-numbers-from-l-to-r
+
+When we do XOR of numbers, we get 0 as the XOR value just before a multiple of 4. This keeps repeating before every multiple of 4. 
+very imp concept learnt..
+class Solution {
+    
+    
+     
+    
+    public static int findXOR(int l, int r) {
+       // xor from 1 to l-1: (lm1 means l minus 1)
+      int x1 = 0;
+      int x2 = 0;
+      int lm1 = l-1;
+       
+      if(lm1%4 == 0)x1 = lm1;
+      if(lm1%4 == 1)x1 = 1;
+      if(lm1%4 == 2)x1 = lm1+1;
+      if(lm1%4 == 3)x1 = 0;
+       
+      if(r%4 == 0)x2 = r;
+      if(r%4 == 1)x2 = 1;
+      if(r%4 == 2)x2 = r+1;
+      if(r%4 == 3)x2 = 0;
+       
+       
+       return x1 ^ x2;
+    }
+}
