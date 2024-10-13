@@ -1,0 +1,37 @@
+https://www.geeksforgeeks.org/problems/two-numbers-with-odd-occurrences5846/1
+
+
+class Solution
+{
+    public int[] twoOddNum(int Arr[], int N)
+    {
+        // code here
+        int ans = 0;
+        for(int i=0;i<N;i++){
+            ans = ans ^ Arr[i];
+        }
+        int idx = 0;
+        int num1 =0;
+        int num2 =0;
+        for(int i=0;i<32;i++){
+            if((ans & (1<<i)) != 0){
+                idx = i;
+                break;
+            }
+        }
+        for(int i =0;i<N;i++){
+            if( (Arr[i] & (1<<idx)) != 0  )num1 = num1 ^ Arr[i];
+            if( (Arr[i] & (1<<idx)) == 0  )num2 = num2 ^ Arr[i];
+        }
+        int [] res = new int[2];
+        if(num1>num2){
+            res[0]=num1;
+            res[1]=num2;
+        }
+        else{
+            res[0]=num2;
+            res[1]=num1;
+        }
+        return res;
+    }
+}
