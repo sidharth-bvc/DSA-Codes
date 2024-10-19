@@ -1,0 +1,33 @@
+https://www.geeksforgeeks.org/problems/find-length-of-loop/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=find-length-of-loop
+
+class Solution {
+    // Function to find the length of a loop in the linked list.
+    public int countNodesinLoop(Node head) {
+        // Add your code here.
+        int count = 0;
+        
+        Node slower = head;
+        Node faster = head;
+        Node temp = head;
+       
+        boolean found = false;
+        
+        while(faster != null && faster.next != null){
+            slower = slower.next;
+            faster = faster.next.next;
+            
+            if(slower == faster){
+                found = true;
+                while(faster.next != slower){
+                    faster = faster.next;
+                    count++;
+                    
+                }
+                break;
+                
+            }
+        }
+        if(! found) return 0;
+        return count+1;
+    }
+}
