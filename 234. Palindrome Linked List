@@ -1,0 +1,44 @@
+one mistake i was making here was in the loop at line 35, i was checking for the oldHead, and had not broke the linked list, should have done "slower.next = null" or like now iterarated the newHead
+
+
+class Solution {
+    public ListNode reverse(ListNode head){
+        ListNode curr = head;
+        ListNode prev = null;
+        while(curr != null){
+            ListNode currp1 = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = currp1;
+        }
+        head = prev;
+        return head;
+    }
+    public boolean isPalindrome(ListNode head) {
+        if(head == null ) return false;
+        if(head.next == null)return true;
+        if(head.next.next==null){
+            if(head.val == head.next.val)return true;
+            return false;
+        }
+        ListNode slower = head;
+        ListNode faster = head;
+
+        while(faster != null && faster.next != null && faster.next.next != null){
+            slower = slower.next;
+            faster = faster.next.next;
+        }
+
+       
+        ListNode newHead = reverse(slower.next);
+        ListNode oldHead = head;
+        while(newHead != null){
+            if(oldHead.val != newHead.val)return false;
+            oldHead = oldHead.next;
+            newHead = newHead.next;
+        }
+
+        return true;
+        
+    }
+}
