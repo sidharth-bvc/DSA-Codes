@@ -1,0 +1,59 @@
+class Solution {
+
+
+//mid function to get the middle of the main list so to seperate in lefthlf and rightalf, remember here i am initializing faster to head.next and not head, and that is the right way
+    private ListNode getMid(ListNode head){
+        if(head == null || head.next ==null)return head;
+        ListNode slower = head;
+        ListNode faster = head.next;
+        while(faster != null && faster.next != null){
+            slower = slower.next;
+            faster = faster.next.next;
+        }
+        return slower;
+    }
+
+// the merge function, you cant initialize mainHead to null only, you have to first initlize the smaller value between h1 and h2 and maintain a curr pointer to curate a list
+    private ListNode merge (ListNode h1, ListNode h2){
+        if(h1 == null )return h2;
+        if(h2 == null )return h1;
+        ListNode mainHead = null;
+        if(h1.val<h2.val){
+            mainHead = h1;
+            h1 = h1.next;
+        }
+        else {
+            mainHead = h2;
+            h2 = h2.next;
+        }
+       ListNode curr = mainHead;
+       
+        while(h1 != null && h2 != null){
+            if(h1.val < h2.val){
+               curr.next = h1;
+                h1 = h1.next;
+            }
+            else if(h1.val >= h2.val){
+                curr.next = h2;
+                h2 = h2.next;
+            }
+            curr = curr.next;
+        }
+        if(h1 == null)curr.next = h2;
+        else curr.next = h1;
+        return mainHead;
+    }
+
+
+//and the very simple recursive sortList function that first deivides the list in two halves, sorts them and then merges them, remember to end the leftside list by pointing the mid.next to null
+    public ListNode sortList(ListNode head) {
+        if(head == null || head.next ==null)return head;
+
+        ListNode mid = getMid(head);
+        ListNode rightHead = mid.next;
+        mid.next = null;
+        ListNode leftHalf = sortList(head);
+        ListNode rightHalf = sortList(rightHead);
+        return merge(leftHalf,rightHalf);
+    }
+}
